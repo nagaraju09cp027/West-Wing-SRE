@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: nagaraju
+      POSTGRES_PASSWORD: password
+  webapp:
+    image: "yeasy/simple-web:latest"
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: password
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+
+  webapp2:
+    image: "yeasy/simple-web:latest"
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: password
+    depends_on:
+      - db
+    ports:
+      - "5001:5000"
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
