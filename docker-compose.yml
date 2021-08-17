@@ -2,15 +2,15 @@ version: "3"
 
 services:
   db:
-    image: postgres:latest
+    image: percona:8.0
+    restart: always
     environment:
-      POSTGRES_USER: nagaraju
-      POSTGRES_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: dbpassword
   webapp:
     image: "yeasy/simple-web:latest"
     environment:
-      PGUSER: postgres
-      PGPASSWORD: password
+      DBUSER: root
+      DBPASSWORD: dbpassword
     depends_on:
       - db
     ports:
@@ -19,8 +19,8 @@ services:
   webapp2:
     image: "yeasy/simple-web:latest"
     environment:
-      PGUSER: postgres
-      PGPASSWORD: password
+      DBUSER: root
+      DBPASSWORD: dbpassword
     depends_on:
       - db
     ports:
